@@ -50,5 +50,5 @@ var returnGems = function(allRocks){
 }
 
 
-var testInput = [ 'abcdde', 'baccd' , 'eeabg'];
+var testInput = [ 'acfegh', 'xwyy'];
 console.log("result :", returnGems(testInput));
