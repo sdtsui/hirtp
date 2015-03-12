@@ -1,0 +1,1 @@
+http://www.codewars.com/kata/bit-wise-number-1-xor-cism/javascript
