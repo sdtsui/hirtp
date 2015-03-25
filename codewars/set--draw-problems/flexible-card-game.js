@@ -1,15 +1,17 @@
 function Card(suit, rank) {
-	this.suit = suit
-	this.rank = rank
-	this.face_card = (rank > 10) ? true : false ;
 	this.prototype = Object.create(Card.prototype);
-
+	this.suit = suit;
+	this.rank = rank;
+	this.face_card = (rank > 10) ? true : false ;
+	this.valueOf = function(){
+		return this.rank;
+	};
 }
 
-Card.HEARTS= 'Hearts',
-Card.SPADES= 'Spades',
-Card.CLUBS= 'Clubs',
-Card.DIAMONDS= 'Diamonds',
+Card.HEARTS= 'Hearts';
+Card.SPADES= 'Spades';
+Card.CLUBS= 'Clubs';
+Card.DIAMONDS= 'Diamonds';
 
 Card.prototype = {
 	toString: function() {
@@ -29,10 +31,9 @@ Card.prototype = {
 		13: "King"
 	}
 };
-// http://www.codewars.com/kata/search/my-languages?q=draw&beta=false
-function Deck() {
 
-	this.prototype = Object.create(Card.prototype);
+function Deck() {
+	this.prototype = Object.create(Deck.prototype);
 	this.cards = [];
 	var suits = [Card.SPADES, Card.HEARTS, Card.CLUBS, Card.DIAMONDS]
 	for (var i = 0; i < suits.length; i ++){
@@ -40,7 +41,6 @@ function Deck() {
 			this.cards.push(new Card(suits[i], j))		
 		}
 	}
-
 }
 
 Deck.prototype = {

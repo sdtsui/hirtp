@@ -2,16 +2,7 @@
 
 <script type="text/javascript">
 var newDeck = new Deck();
-console.dir(newDeck);
-console.log(newDeck.count());
-console.log(newDeck.draw(5));
-console.log(newDeck.count());
+var card1 = newDeck.draw(1);
+var card2 = newDeck.draw(2);
 
-newDeck.shuffle();
-console.log(newDeck.cards);
-
-var queen_of_spades = new Card(Card.SPADES, 12);
-var ten_of_clubs = new Card(Card.CLUBS, 10);
-console.dir(queen_of_spades);
-console.log(queen_of_spades.toString());
 </script>
