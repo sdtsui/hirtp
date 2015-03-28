@@ -2,6 +2,23 @@
 //-n splicing
 //using objects as a one-line switch
 //
+//
+/**
+ * That's how you randomize!
+ * If compareFunction(a, b) is less than 0, sort a to a lower index than b, i.e. a comes first.
+If compareFunction(a, b) returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements. Note: the ECMAscript standard does not guarantee this behaviour, and thus not all browsers (e.g. Mozilla versions dating back to at least 2003) respect this.
+If compareFunction(a, b) is greater than 0, sort b to a lower index than a.
+compareFunction(a, b) must always return the same value when given a specific pair of elements a and b as its two arguments. If inconsistent results are returned then the sort order is undefined
+
+1.
+Just return a uniform distribution from -.5 to +.5
+Math.random() - 0.5
+
+2. Can do swapping with commas. 
+//swap:
+
+if (something){temp = thing1, thing1 = thing2, thing2=temp;}
+ */
 
 function Card(suit, rank) {
   this.suit = suit
@@ -53,7 +70,7 @@ Deck.prototype = {
   }
 };
 
-//Comma shuffle function
+//Comma shuffle function; it's just a hacky for loop
 
 
 function Card(suit, rank) {

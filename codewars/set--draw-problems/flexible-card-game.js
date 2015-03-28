@@ -1,64 +1,50 @@
 function Card(suit, rank) {
-	this.suit = suit;
-	this.rank = rank;
-	this.face_card = (rank > 10) ? true : false ;
-	this.valueOf = function(){
-		return this.rank;
-	};
+  this.suit = suit
+  this.rank = rank
 }
 
-Card.prototype.constructor = Card;
-
-Card.HEARTS= 'Hearts';
-Card.SPADES= 'Spades';
-Card.CLUBS= 'Clubs';
-Card.DIAMONDS= 'Diamonds';
+Card.SUITS = [
+  Card.CLUBS    = 'Clubs',
+  Card.DIAMONDS = 'Diamonds',
+  Card.HEARTS   = 'Hearts',
+  Card.SPADES   = 'Spades'
+]
 
 Card.prototype = {
-	toString: function() {
-		var rankString;
-		if (this.rank === 1){
-			rankString = "Ace"
-		} else if ( this.face_card ){
-			rankString = this.facecards[this.rank];
-		} else {
-			rankString = this.rank;
-		}
-		return rankString + " of " + this.suit;
-	},
-	facecards: {
-		11: "Jack",
-		12: "Queen",
-		13: "King"
-	}
-};
+  get face_card() {
+    return this.rank > 10
+  },
+  valueOf: function() {
+    return this.rank
+  },
+  toString: function() {
+    //switch statement
+    var rank = {1: 'Ace', 11: 'Jack', 12: 'Queen', 13: 'King'}[this.rank] || this.rank
+    return rank + ' of ' + this.suit
+  }
+}
 
 function Deck() {
-	this.cards = [];
-	var suits = [Card.SPADES, Card.HEARTS, Card.CLUBS, Card.DIAMONDS]
-	for (var i = 0; i < suits.length; i ++){
-		for (var j = 1; j <=13; j++){
-			this.cards.push(new Card(suits[i], j))		
-		}
-	}
+  this.cards = []
+  
+  for (var i = 0; i < Card.SUITS.length; i++) {
+    for (var rank = 1; rank <= 13; rank++) {
+      this.cards.push(new Card(Card.SUITS[i], rank))
+    }
+  }
+  
+  this.shuffle()
 }
-Deck.prototype.constructor = Deck;
 
 Deck.prototype = {
   count: function() {
-  	return this.cards.length;
+    return this.cards.length
   },
   draw: function(n) {
-  	var drawnCards = this.cards.splice(this.count()-n, n);
-  	return drawnCards;
+    return this.cards.splice(-n, n)
   },
   shuffle: function() {
-  	var shuffledDeck = [];
-  	while (this.count() > 0){
-  		var randomIndex = Math.floor(Math.random()*(this.count()-1));
-  		shuffledDeck.push(
-  			this.cards.splice(randomIndex,1)[0]);
-  	}
-  	this.cards = shuffledDeck;
+  	debugger;
+    this.cards.sort(function() { return Math.random() - 0.5 })
   }
 };
