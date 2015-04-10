@@ -1,0 +1,45 @@
+<script type="text/javascript" src="asyncMap.js"></script>
+
+<script type="text/javascript">
+console.log('go');
+ asyncMap([
+  function(cb){
+    setTimeout(function(){
+      cb('one');
+    }, 200);
+  },
+  function(cb){
+    setTimeout(function(){
+      cb('two');
+    }, 100);
+  }
+ ],
+  function(results){
+    // the results array will equal ['one','two'] even though
+    // the second function had a shorter timeout.
+    console.log(results); // ['one', 'two']
+ });
+
+
+     function wait2For2(callback){
+      setTimeout(function () {
+        callback(2);
+      }, 200);
+    }
+function wait3For1(callback){
+      setTimeout(function(){
+        callback(1);
+      }, 300);
+    }
+var res;
+    asyncMap([wait2For2, wait3For1], function(arr){
+      res = arr;
+      /* This should work regardless of order because of
+       * the time it takes to execute these 2 functions
+       */
+      debugger;
+      res.should.equal([2,1]);
+      res.length.should.equal(2);
+      done();
+    }); 
+</script>
