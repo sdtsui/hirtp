@@ -1,0 +1,35 @@
+    <script type="text/javascript">
+    console.log('before');
+
+    var childMod = Backbone.Model.extend({
+        initialize: function(){
+            this.on('childTrigger', function(){
+                console.log('child sees childTrigger');
+            })
+            this.on('parentTrigger', function(){
+                console.log('child sees parentTrigger');
+            })
+            this.trigger('childTrigger');
+        }
+
+    });
+
+    var parentCol = Backbone.Collection.extend({
+        model: childMod,
+        initialize: function(){
+            this.on('childTrigger', function(){
+                console.log('parent sees childTrigger.');
+            });
+            this.on('parentTrigger', function(){
+                console.log('parent sees parentTrigger.');
+            });
+            this.trigger('parentTrigger');
+        }
+    });
+    console.log('models instantiated, creating parent-child relationship, and triggering events');
+
+
+    var parent = new parentCol([new childMod()]);
+    
+    console.log('child has triggered parents');
+    </script>
