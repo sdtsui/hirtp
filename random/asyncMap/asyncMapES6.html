@@ -1,26 +1,7 @@
-<script type="text/javascript" src="asyncMap.js"></script>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.27.1/es6-sham.min.js"></script>
+<script type="text/javascript" src="asyncP.js"></script>
+x.
 <script type="text/javascript">
-console.log('go');
- asyncMap([
-  function(cb){
-    setTimeout(function(){
-      cb('one');
-    }, 200);
-  },
-  function(cb){
-    setTimeout(function(){
-      cb('two');
-    }, 100);
-  }
- ],
-  function(results){
-    // the results array will equal ['one','two'] even though
-    // the second function had a shorter timeout.
-    console.log(results); // ['one', 'two']
- });
-
-
 var wait500For9x9 = function(callback){
       setTimeout(function () {
         callback(Math.pow(9,2));
@@ -37,7 +18,7 @@ var wait100For1Plus1 = function(callback){
       }, 100);
     };
 
-asyncMap([wait500For9x9, wait300For5x5, wait100For1Plus1], function(results){
+asyncPromises([wait500For9x9, wait300For5x5, wait100For1Plus1], function(results){
       console.log(results);
       /*
       Should log [25, 81, 2], returning the results in the order they entered the array, and not the order they returned
