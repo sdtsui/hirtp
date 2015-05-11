@@ -4,5 +4,5 @@
 //  'bottom left', 'bottom middle', 'bottom right']
 //
 function fire(x,y) {
-  console.log(grid);
+  return grid[y*3 + x];
 }
