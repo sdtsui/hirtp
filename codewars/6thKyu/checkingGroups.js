@@ -13,8 +13,8 @@ function groupCheck(s){
       )
   };
   var queue = [];
-  s.split('').forEach(function(el, idx){
-    if (isLeft(s)){
+  s.split('').forEach(function(el){
+    if (isLeft(el)){
       queue.push(el);
     } else {
       if (queue[queue.length-1] === rightToLeft(el)){
@@ -24,6 +24,6 @@ function groupCheck(s){
       }
     }
   });
-  
+
   return (queue.length === 0) ? true : false;
 }
