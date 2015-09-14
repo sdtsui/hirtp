@@ -1,0 +1,71 @@
+<html>
+<head>
+    <title>5-stars</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div class="starWidget"> 
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>            
+    </div>
+
+
+    <!-- CSS -->
+    <style type="text/css" media="screen">
+        .highlight {
+            color: yellow;
+        }
+        .clicked {
+            color: gold;
+        }
+    </style>
+
+    
+    <!-- JS -->
+    <script type="text/javascript" charset="utf-8" async defer>
+        var applyStyle = function(e, styleName) {
+            var clickedStar = e.target;
+            var starWidget = clickedStar.parentNode;
+            var clickedIndex; 
+            $(starWidget).children().each(function(index, target) {
+                $(target).removeClass(styleName);
+                if (target === clickedStar) {
+                    clickedIndex = index;
+                }
+            });
+            $(starWidget).children().each(function(index, star) {
+                if (index <= clickedIndex) {
+                    $(star).toggleClass(styleName);
+                }
+            });
+        }
+    
+        //Click
+        $('.star').click(function(e) {
+            applyStyle(e, 'clicked');
+        });
+        //on mousenter: highlight as if I've clicked above
+        //on mouseleave of a star: 
+        //Hover:
+        $('.star').mouseover(function(e) {
+            applyStyle(e, 'highlight');
+        });
+        $('.star').mouseleave(function(e) {
+            var clickedStar = e.target;
+            var starWidget = clickedStar.parentNode;
+            $(starWidget).children().each(function(index, target) {
+                $(target).removeClass('highlight');
+            });
+        });
+
+        $('.star').each(function(index, star) {
+            star.innerHTML = String.fromCharCode(9734);
+        })
+
+    </script>
+</body>
+</html>
+

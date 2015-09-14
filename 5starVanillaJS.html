@@ -1,0 +1,74 @@
+<html>
+<head>
+    <title>5-stars</title>
+</head>
+<body>
+    <div class="starWidget"> 
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>
+        <span class="star"></span>            
+    </div>
+
+    <!-- CSS -->
+    <style type="text/css" media="screen">
+        .highlight {
+            color: yellow;
+        }
+        .clicked {
+            color: gold;
+        }
+    </style>
+
+    <!-- JS -->
+    <script type="text/javascript" charset="utf-8" async defer>
+    //select all stars
+    //add listeners
+    //  on Click: iterate and apply styles
+    //  on Hover: iterate and apply styles, mouseleave
+        //  -iterating once to find the index
+        //  -iterating again to apply properly, based on index
+    var starWidget = document.querySelector('.starWidget');
+    var allStars = document.querySelectorAll('.star');
+
+    for (var i = 0; i < allStars.length; i++) {
+        //addListeners:
+        allStars[i].addEventListener('click', function(e) {
+            applyStyle(e, 'clicked');
+        });
+        allStars[i].addEventListener('mouseover', function(e) {
+            applyStyle(e, 'highlight');
+        });
+        allStars[i].addEventListener('mouseout', function(e) {
+            for (var i = 0; i < allStars.length; i++) {
+                if (!allStars[i]) {
+                    debugger;
+                }
+                allStars[i].classList.remove('highlight');
+            }
+        });
+        allStars[i].innerHTML = String.fromCharCode(9734);
+
+    }
+
+    function applyStyle (e, styleName) {
+        var clickedStar = e.target;
+        var starWidget = clickedStar.parentNode;
+        var clickedIndex; 
+        for (var i = 0; i < allStars.length; i++){
+            allStars[i].classList.remove(styleName);
+            if (allStars[i] === clickedStar) {
+                clickedIndex = i;
+            }
+        }
+        for (var i = 0; i < allStars.length; i++){
+            if (i <= clickedIndex) {
+                allStars[i].classList.toggle(styleName)
+            }
+        }
+    }
+    </script>
+</body>
+</html>
+

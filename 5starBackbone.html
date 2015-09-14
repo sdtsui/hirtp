@@ -1,0 +1,96 @@
+<html>
+<head>
+    <title>5-stars</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.2.3/backbone-min.js"></script>
+</head>
+<body>
+    
+    <div class="widgetHolder"></div>
+
+    <!-- CSS -->
+    <style type="text/css" media="screen">
+        .highlight {
+            color: yellow;
+        }
+        .clicked {
+            color: gold;
+        }
+    </style>
+    
+    <!-- JS -->
+    <script type="text/javascript" charset="utf-8" async defer>
+    var templateString = '<span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span><span class="star"></span>'
+
+    var starWidgetModel = Backbone.Model.extend({});
+
+    //hold an array of 
+    var starWidgetView = Backbone.View.extend({
+        tagname: 'div',
+        className: 'starWidget',
+        events: {
+            mouseover: "mOver", 
+            mouseout: "mOut",
+            click: "clicked"
+        },
+        applyStyle : function(e, styleName) {
+            var clickedStar = e.target;
+            var starWidget = clickedStar.parentNode;
+            var clickedIndex; 
+            $(starWidget).children().each(function(index, target) {
+                $(target).removeClass(styleName);
+                if (target === clickedStar) {
+                    clickedIndex = index;
+                }
+            });
+            $(starWidget).children().each(function(index, star) {
+                if (index <= clickedIndex) {
+                    $(star).toggleClass(styleName);
+                }
+            });
+
+        },
+        initialize: function() {
+            this.render();
+
+            //add Symbols
+            $('.star').each(function(index, star) {
+                star.innerHTML = this.model.get('symbol');
+            }.bind(this));
+
+            //add Listeners
+            $('.star').click(function(e) {
+                this.applyStyle(e, 'clicked');
+            }.bind(this));
+            $('.star').mouseover(function(e) {
+                this.applyStyle(e, 'highlight');
+            }.bind(this));
+            $('.star').mouseleave(function(e) {
+                var clickedStar = e.target;
+                var starWidget = clickedStar.parentNode;
+                $(starWidget).children().each(function(index, target) {
+                    $(target).removeClass('highlight');
+                });
+            });
+
+        },
+        template: _.template(templateString),
+        render: function() {
+          this.$el.html(this.template(this.model.attributes));
+          return this;
+        }
+    });
+    var newStarsM = new starWidgetModel({
+        symbol: String.fromCharCode(9734)
+    });
+
+    var newStars = new starWidgetView({
+        model: newStarsM,
+        el: $('.widgetHolder')[0]
+    });
+
+    </script>
+</body>
+</html>
+
